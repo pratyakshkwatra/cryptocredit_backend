@@ -6,6 +6,7 @@ class Wallet(Base):
     __tablename__ = "wallets"
 
     id = Column(Integer, primary_key=True, index=True)
+    nickname = Column(String, nullable=False)
     address = Column(String, unique=True, nullable=False)
     chain = Column(String, nullable=False)
 
