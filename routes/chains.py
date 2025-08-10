@@ -43,109 +43,6 @@ chains = {
     }
   },
 
-  "Frontier Chains": {
-    "bitcoin": {
-      "c_id": "btc-mainnet",
-      "icon_name": "btc"
-    },
-    "solana": {
-      "c_id": "solana-mainnet",
-      "icon_name": "sol"
-    },
-    "unichain": {
-      "c_id": "unichain-mainnet",
-      "icon_name": "uni"
-    },
-    "berachain": {
-      "c_id": "berachain-mainnet",
-      "icon_name": "bera"
-    },
-    "apechain": {
-      "c_id": "apechain-mainnet",
-      "icon_name": "ape"
-    },
-    "arbitrum": {
-      "c_id": "arbitrum-mainnet",
-      "icon_name": "arb"
-    },
-    "arbitrum_nova": {
-      "c_id": "arbitrum-nova-mainnet",
-      "icon_name": "arb-nova"
-    },
-    "avalanche": {
-      "c_id": "avalanche-mainnet",
-      "icon_name": "avax"
-    },
-    "axie": {
-      "c_id": "axie-mainnet",
-      "icon_name": "axie"
-    },
-    "boba_bnb": {
-      "c_id": "boba-bnb-mainnet",
-      "icon_name": "boba"
-    },
-    "boba_ethereum": {
-      "c_id": "boba-mainnet",
-      "icon_name": "boba"
-    },
-    "hyperevm": {
-      "c_id": "hyperevm-mainnet",
-      "icon_name": "hyper"
-    },
-    "ink": {
-      "c_id": "ink-mainnet",
-      "icon_name": "ink"
-    },
-    "lens": {
-      "c_id": "lens-mainnet",
-      "icon_name": "lens"
-    },
-    "linea": {
-      "c_id": "linea-mainnet",
-      "icon_name": "linea"
-    },
-    "mantle": {
-      "c_id": "mantle-mainnet",
-      "icon_name": "mantle"
-    },
-    "oasis_sapphire": {
-      "c_id": "oasis-sapphire-mainnet",
-      "icon_name": "oasis"
-    },
-    "palm": {
-      "c_id": "palm-mainnet",
-      "icon_name": "palm"
-    },
-    "scroll": {
-      "c_id": "scroll-mainnet",
-      "icon_name": "scroll"
-    },
-    "sei": {
-      "c_id": "sei-mainnet",
-      "icon_name": "sei"
-    },
-    "taiko": {
-      "c_id": "taiko-mainnet",
-      "icon_name": "taiko"
-    },
-    "viction": {
-      "c_id": "viction-mainnet",
-      "icon_name": "viction"
-    },
-    "world": {
-      "c_id": "world-mainnet",
-      "icon_name": "world"
-    },
-    "zksync": {
-      "c_id": "zksync-mainnet",
-      "icon_name": "zksync"
-    },
-    "zora": {
-      "c_id": "zora-mainnet",
-      "icon_name": "zora"
-    }
-  },
-
   "Community Chains": {
     "aurora": {
       "c_id": "aurora-mainnet",
@@ -270,6 +167,109 @@ chains = {
     "zetachain": {
       "c_id": "zetachain-mainnet",
       "icon_name": "zeta"
+    }
+  },
+
+  "Frontier Chains": {
+    "bitcoin": {
+      "c_id": "btc-mainnet",
+      "icon_name": "btc"
+    },
+    "solana": {
+      "c_id": "solana-mainnet",
+      "icon_name": "sol"
+    },
+    "unichain": {
+      "c_id": "unichain-mainnet",
+      "icon_name": "uni"
+    },
+    "berachain": {
+      "c_id": "berachain-mainnet",
+      "icon_name": "bera"
+    },
+    "apechain": {
+      "c_id": "apechain-mainnet",
+      "icon_name": "ape"
+    },
+    "arbitrum": {
+      "c_id": "arbitrum-mainnet",
+      "icon_name": "arb"
+    },
+    "arbitrum_nova": {
+      "c_id": "arbitrum-nova-mainnet",
+      "icon_name": "arb-nova"
+    },
+    "avalanche": {
+      "c_id": "avalanche-mainnet",
+      "icon_name": "avax"
+    },
+    "axie": {
+      "c_id": "axie-mainnet",
+      "icon_name": "axie"
+    },
+    "boba_bnb": {
+      "c_id": "boba-bnb-mainnet",
+      "icon_name": "boba"
+    },
+    "boba_ethereum": {
+      "c_id": "boba-mainnet",
+      "icon_name": "boba"
+    },
+    "hyperevm": {
+      "c_id": "hyperevm-mainnet",
+      "icon_name": "hyper"
+    },
+    "ink": {
+      "c_id": "ink-mainnet",
+      "icon_name": "ink"
+    },
+    "lens": {
+      "c_id": "lens-mainnet",
+      "icon_name": "lens"
+    },
+    "linea": {
+      "c_id": "linea-mainnet",
+      "icon_name": "linea"
+    },
+    "mantle": {
+      "c_id": "mantle-mainnet",
+      "icon_name": "mantle"
+    },
+    "oasis_sapphire": {
+      "c_id": "oasis-sapphire-mainnet",
+      "icon_name": "oasis"
+    },
+    "palm": {
+      "c_id": "palm-mainnet",
+      "icon_name": "palm"
+    },
+    "scroll": {
+      "c_id": "scroll-mainnet",
+      "icon_name": "scroll"
+    },
+    "sei": {
+      "c_id": "sei-mainnet",
+      "icon_name": "sei"
+    },
+    "taiko": {
+      "c_id": "taiko-mainnet",
+      "icon_name": "taiko"
+    },
+    "viction": {
+      "c_id": "viction-mainnet",
+      "icon_name": "viction"
+    },
+    "world": {
+      "c_id": "world-mainnet",
+      "icon_name": "world"
+    },
+    "zksync": {
+      "c_id": "zksync-mainnet",
+      "icon_name": "zksync"
+    },
+    "zora": {
+      "c_id": "zora-mainnet",
+      "icon_name": "zora"
     }
   },
 

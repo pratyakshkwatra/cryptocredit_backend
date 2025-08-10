@@ -18,8 +18,8 @@ def get_wallets(
 
 @router.post("/verify")
 def verify_wallet(wallet: WalletCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    if not is_valid_address(wallet.address):
-        return {"message": "Invalid wallet address format.", "error": True}
+    # if not is_valid_address(wallet.address):
+    #     return {"message": "Invalid wallet address format.", "error": True}
 
     if not can_fetch_data_from_goldrush(wallet.address, wallet.chain):
         return {"message": "Wallet address could not be verified on the specified chain.",  "error": True}
@@ -33,14 +33,13 @@ def add_wallet(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    if not is_valid_address(wallet.address):
-        raise HTTPException(status_code=400, detail="Invalid wallet address format.")
+    if not can_fetch_data_from_goldrush(wallet.address, wallet.chain):
+        return {"message": "Wallet address could not be verified on the specified chain.",  "error": True}
     
     if str(wallet.nickname).strip() != "":
         nickname = str(wallet.nickname).strip()
     else:
         nickname = generate_name()
-    
 
     db_wallet = Wallet(
         address=wallet.address, chain=wallet.chain, user_id=current_user.id, nickname=nickname
