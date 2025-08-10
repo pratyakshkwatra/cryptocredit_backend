@@ -85,10 +85,20 @@ def refresh_token(refresh_token: str, db: Session = Depends(get_db)):
 
     user_id = payload.get("sub")
     new_access_token = create_access_token({"sub": user_id})
+
+    db_user = db.query(User).filter(User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    
     return {
         "access_token": new_access_token,
         "refresh_token": refresh_token,
         "token_type": "bearer",
+        "user": {
+            "id": db_user.id,
+            "email": db_user.email,
+            "is_active": db_user.is_active,
+        },
     }
 
 @router.post("/sign_out")
