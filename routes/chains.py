@@ -9,145 +9,319 @@ router = APIRouter(prefix="/chains", tags=["Chains"])
 
 chains = {
   "Foundational Chains": {
-    "eth-mainnet": "Ethereum",
-    "eth-sepolia": "Ethereum Sepolia Testnet",
-    "eth-holesky": "Ethereum Holesky Testnet",
-    "matic-mainnet": "Polygon",
-    "polygon-amoy-testnet": "Polygon Amoy Testnet",
-    "bsc-mainnet": "BNB Smart Chain (BSC)",
-    "bsc-testnet": "BNB Smart Chain (BSC) Testnet",
-    "optimism-mainnet": "Optimism",
-    "optimism-sepolia": "Optimism Sepolia Testnet",
-    "base-mainnet": "Base",
-    "base-sepolia-testnet": "Base Sepolia Testnet",
-    "gnosis-mainnet": "Gnosis",
-    "gnosis-testnet": "Chiado Testnet"
+    "ethereum": {
+      "c_id": "eth-mainnet",
+      "icon_name": "eth"
+    },
+    "sepolia": {
+      "c_id": "eth-sepolia",
+      "icon_name": "eth"
+    },
+    "holesky": {
+      "c_id": "eth-holesky",
+      "icon_name": "eth"
+    },
+    "polygon": {
+      "c_id": "matic-mainnet",
+      "icon_name": "matic"
+    },
+    "bsc": {
+      "c_id": "bsc-mainnet",
+      "icon_name": "bsc"
+    },
+    "optimism": {
+      "c_id": "optimism-mainnet",
+      "icon_name": "opt"
+    },
+    "base": {
+      "c_id": "base-mainnet",
+      "icon_name": "base"
+    },
+    "gnosis": {
+      "c_id": "gnosis-mainnet",
+      "icon_name": "gno"
+    }
   },
 
   "Frontier Chains": {
-    "btc-mainnet": "Bitcoin",
-    "solana-mainnet": "Solana",
-    "unichain-mainnet": "Unichain",
-    "unichain-sepolia-testnet": "Unichain Testnet",
-    "berachain-mainnet": "Berachain",
-    "berachain-testnet": "Berachain Testnet",
-    "apechain-mainnet": "ApeChain",
-    "apechain-testnet": "ApeChain Testnet",
-    "arbitrum-mainnet": "Arbitrum",
-    "arbitrum-sepolia": "Arbitrum Sepolia Testnet",
-    "arbitrum-nova-mainnet": "Arbitrum Nova",
-    "avalanche-mainnet": "Avalanche C-Chain",
-    "avalanche-testnet": "Avalanche Fuji Testnet",
-    "axie-mainnet": "Axie/Ronin",
-    "boba-bnb-mainnet": "Boba BNB",
-    "boba-bnb-testnet": "Boba BNB Testnet",
-    "boba-mainnet": "Boba Ethereum",
-    "gunzilla-testnet": "Gunzilla Testnet",
-    "hyperevm-mainnet": "HyperEVM",
-    "ink-mainnet": "Ink",
-    "ink-sepolia-testnet": "Ink Testnet",
-    "lens-mainnet": "Lens",
-    "lens-sepolia-testnet": "Lens Testnet",
-    "linea-mainnet": "Linea",
-    "linea-sepolia-testnet": "Linea Sepolia Testnet",
-    "mantle-mainnet": "Mantle",
-    "mantle-sepolia-testnet": "Mantle Testnet",
-    "monad-testnet": "Monad Testnet",
-    "oasis-sapphire-mainnet": "Oasis Sapphire",
-    "oasis-sapphire-testnet": "Oasis Sapphire Testnet",
-    "palm-mainnet": "Palm",
-    "palm-testnet": "Palm Testnet",
-    "scroll-mainnet": "Scroll",
-    "scroll-sepolia-testnet": "Scroll Sepolia Testnet",
-    "sei-mainnet": "Sei",
-    "taiko-mainnet": "Taiko",
-    "taiko-hekla-testnet": "Taiko Hekla Testnet",
-    "viction-mainnet": "Viction",
-    "viction-testnet": "Viction Testnet",
-    "world-mainnet": "World Chain",
-    "world-sepolia-testnet": "World Chain Testnet",
-    "zksync-mainnet": "zkSync Era",
-    "zksync-sepolia-testnet": "zkSync Sepolia Testnet",
-    "zora-mainnet": "Zora",
-    "zora-sepolia-testnet": "Zora Sepolia Testnet"
+    "bitcoin": {
+      "c_id": "btc-mainnet",
+      "icon_name": "btc"
+    },
+    "solana": {
+      "c_id": "solana-mainnet",
+      "icon_name": "sol"
+    },
+    "unichain": {
+      "c_id": "unichain-mainnet",
+      "icon_name": "uni"
+    },
+    "berachain": {
+      "c_id": "berachain-mainnet",
+      "icon_name": "bera"
+    },
+    "apechain": {
+      "c_id": "apechain-mainnet",
+      "icon_name": "ape"
+    },
+    "arbitrum": {
+      "c_id": "arbitrum-mainnet",
+      "icon_name": "arb"
+    },
+    "arbitrum_nova": {
+      "c_id": "arbitrum-nova-mainnet",
+      "icon_name": "arb-nova"
+    },
+    "avalanche": {
+      "c_id": "avalanche-mainnet",
+      "icon_name": "avax"
+    },
+    "axie": {
+      "c_id": "axie-mainnet",
+      "icon_name": "axie"
+    },
+    "boba_bnb": {
+      "c_id": "boba-bnb-mainnet",
+      "icon_name": "boba"
+    },
+    "boba_ethereum": {
+      "c_id": "boba-mainnet",
+      "icon_name": "boba"
+    },
+    "hyperevm": {
+      "c_id": "hyperevm-mainnet",
+      "icon_name": "hyper"
+    },
+    "ink": {
+      "c_id": "ink-mainnet",
+      "icon_name": "ink"
+    },
+    "lens": {
+      "c_id": "lens-mainnet",
+      "icon_name": "lens"
+    },
+    "linea": {
+      "c_id": "linea-mainnet",
+      "icon_name": "linea"
+    },
+    "mantle": {
+      "c_id": "mantle-mainnet",
+      "icon_name": "mantle"
+    },
+    "oasis_sapphire": {
+      "c_id": "oasis-sapphire-mainnet",
+      "icon_name": "oasis"
+    },
+    "palm": {
+      "c_id": "palm-mainnet",
+      "icon_name": "palm"
+    },
+    "scroll": {
+      "c_id": "scroll-mainnet",
+      "icon_name": "scroll"
+    },
+    "sei": {
+      "c_id": "sei-mainnet",
+      "icon_name": "sei"
+    },
+    "taiko": {
+      "c_id": "taiko-mainnet",
+      "icon_name": "taiko"
+    },
+    "viction": {
+      "c_id": "viction-mainnet",
+      "icon_name": "viction"
+    },
+    "world": {
+      "c_id": "world-mainnet",
+      "icon_name": "world"
+    },
+    "zksync": {
+      "c_id": "zksync-mainnet",
+      "icon_name": "zksync"
+    },
+    "zora": {
+      "c_id": "zora-mainnet",
+      "icon_name": "zora"
+    }
   },
 
   "Community Chains": {
-    "aurora-mainnet": "Aurora",
-    "aurora-testnet": "Aurora Testnet",
-    "avalanche-beam-mainnet": "Beam",
-    "avalanche-beam-testnet": "Beam Testnet",
-    "avalanche-dexalot-mainnet": "Dexalot",
-    "avalanche-dexalot-testnet": "Dexalot Testnet",
-    "avalanche-meld-mainnet": "MELDchain",
-    "avalanche-meld-testnet": "MELDchain Testnet",
-    "avalanche-mirai-testnet": "Mirai Testnet",
-    "avalanche-numbers": "Numbers Protocol",
-    "avalanche-shrapnel-mainnet": "Shrapnel",
-    "avalanche-shrapnel-testnet": "Shrapnel Testnet",
-    "avalanche-step-network": "Step Network",
-    "avalanche-uptn": "UPTN",
-    "avalanche-xanachain": "XANA Chain",
-    "blast-mainnet": "Blast",
-    "bnb-opbnb-mainnet": "opBNB",
-    "bnb-opbnb-testnet": "opBNB Testnet",
-    "canto-mainnet": "Canto",
-    "celo-mainnet": "Celo",
-    "covalent-internal-network-v1": "Covalent",
-    "cronos-mainnet": "Cronos",
-    "cronos-testnet": "Cronos Testnet",
-    "cronos-zkevm-mainnet": "Cronos zkEVM",
-    "defi-kingdoms-mainnet": "DeFi Kingdoms",
-    "defi-kingdoms-testnet": "DeFi Kingdoms Testnet",
-    "emerald-paratime-mainnet": "Oasis",
-    "fantom-mainnet": "Fantom",
-    "fantom-testnet": "Fantom Testnet",
-    "fraxtal-mainnet": "Fraxtal",
-    "horizen-eon-mainnet": "Horizen EON",
-    "horizen-gobi-testnet": "Horizen Gobi Testnet",
-    "manta-sepolia-testnet": "Manta Pacific Testnet",
-    "merlin-mainnet": "Merlin",
-    "merlin-testnet": "Merlin Testnet",
-    "metis-mainnet": "Metis",
-    "metis-stardust": "Metis Stardust",
-    "metis-testnet": "Metis Testnet",
-    "moonbeam-mainnet": "Moonbeam",
-    "moonbeam-moonbase-alpha": "Moonbeam Moonbase Alpha Testnet",
-    "moonriver-mainnet": "Moonriver",
-    "movement-mevm-testnet": "Movement MEVM Devnet",
-    "polygon-zkevm-mainnet": "Polygon zkEVM",
-    "polygon-zkevm-cardona-testnet": "Polygon zkEVM Cardona Testnet",
-    "redstone-mainnet": "Redstone",
-    "rollux-mainnet": "Rollux",
-    "rollux-testnet": "Rollux Testnet",
-    "sx-mainnet": "SX Network",
-    "x1-mainnet": "X Layer",
-    "zetachain-mainnet": "ZetaChain",
-    "zetachain-testnet": "ZetaChain Testnet"
+    "aurora": {
+      "c_id": "aurora-mainnet",
+      "icon_name": "aurora"
+    },
+    "avalanche_beam": {
+      "c_id": "avalanche-beam-mainnet",
+      "icon_name": "beam"
+    },
+    "avalanche_dexalot": {
+      "c_id": "avalanche-dexalot-mainnet",
+      "icon_name": "dexalot"
+    },
+    "avalanche_meld": {
+      "c_id": "avalanche-meld-mainnet",
+      "icon_name": "meld"
+    },
+    "avalanche_numbers": {
+      "c_id": "avalanche-numbers",
+      "icon_name": "numbers"
+    },
+    "avalanche_shrapnel": {
+      "c_id": "avalanche-shrapnel-mainnet",
+      "icon_name": "shrapnel"
+    },
+    "avalanche_step_network": {
+      "c_id": "avalanche-step-network",
+      "icon_name": "step"
+    },
+    "avalanche_uptn": {
+      "c_id": "avalanche-uptn",
+      "icon_name": "uptn"
+    },
+    "avalanche_xanachain": {
+      "c_id": "avalanche-xanachain",
+      "icon_name": "xana"
+    },
+    "blast": {
+      "c_id": "blast-mainnet",
+      "icon_name": "blast"
+    },
+    "bnb_opbnb": {
+      "c_id": "bnb-opbnb-mainnet",
+      "icon_name": "opbnb"
+    },
+    "canto": {
+      "c_id": "canto-mainnet",
+      "icon_name": "canto"
+    },
+    "celo": {
+      "c_id": "celo-mainnet",
+      "icon_name": "celo"
+    },
+    "covalent": {
+      "c_id": "covalent-internal-network-v1",
+      "icon_name": "covalent"
+    },
+    "cronos": {
+      "c_id": "cronos-mainnet",
+      "icon_name": "cronos"
+    },
+    "cronos_zkevm": {
+      "c_id": "cronos-zkevm-mainnet",
+      "icon_name": "zkevm"
+    },
+    "defi_kingdoms": {
+      "c_id": "defi-kingdoms-mainnet",
+      "icon_name": "dfk"
+    },
+    "emerald_paratime": {
+      "c_id": "emerald-paratime-mainnet",
+      "icon_name": "oasis"
+    },
+    "fantom": {
+      "c_id": "fantom-mainnet",
+      "icon_name": "ftm"
+    },
+    "fraxtal": {
+      "c_id": "fraxtal-mainnet",
+      "icon_name": "frax"
+    },
+    "horizen_eon": {
+      "c_id": "horizen-eon-mainnet",
+      "icon_name": "eon"
+    },
+    "merlin": {
+      "c_id": "merlin-mainnet",
+      "icon_name": "merlin"
+    },
+    "metis": {
+      "c_id": "metis-mainnet",
+      "icon_name": "metis"
+    },
+    "moonbeam": {
+      "c_id": "moonbeam-mainnet",
+      "icon_name": "moonbeam"
+    },
+    "moonriver": {
+      "c_id": "moonriver-mainnet",
+      "icon_name": "moonriver"
+    },
+    "polygon_zkevm": {
+      "c_id": "polygon-zkevm-mainnet",
+      "icon_name": "zkevm"
+    },
+    "redstone": {
+      "c_id": "redstone-mainnet",
+      "icon_name": "redstone"
+    },
+    "rollux": {
+      "c_id": "rollux-mainnet",
+      "icon_name": "rollux"
+    },
+    "sx": {
+      "c_id": "sx-mainnet",
+      "icon_name": "sx"
+    },
+    "x1": {
+      "c_id": "x1-mainnet",
+      "icon_name": "x1"
+    },
+    "zetachain": {
+      "c_id": "zetachain-mainnet",
+      "icon_name": "zeta"
+    }
   },
 
   "Archived Chains": {
-    "avalanche-dos": "DOS Chain",
-    "bnb-fncy-mainnet": "FNCY",
-    "bnb-fncy-testnet": "FNCY Testnet",
-    "evmos-mainnet": "Evmos",
-    "evmos-testnet": "Evmos Testnet",
-    "flarenetworks-canary-mainnet": "Songbird",
-    "flarenetworks-canary-testnet": "Songbird Testnet",
-    "harmony-mainnet": "Harmony",
-    "harmony-testnet": "Harmony Testnet",
-    "lisk-mainnet": "Lisk",
-    "lisk-sepolia-testnet": "Lisk Sepolia Testnet",
-    "loot-mainnet": "Loot Chain",
-    "meter-mainnet": "Meter",
-    "meter-testnet": "Meter Testnet",
-    "milkomeda-c1-mainnet": "Milkomeda C1",
-    "mode-mainnet": "Mode",
-    "mode-testnet": "Mode Testnet",
-    "telos-mainnet": "Telos",
-    "telos-testnet": "Telos Testnet",
-    "ultron-mainnet": "Ultron",
-    "ultron-testnet": "Ultron Testnet"
+    "dos": {
+      "c_id": "avalanche-dos",
+      "icon_name": "dos"
+    },
+    "fncy": {
+      "c_id": "bnb-fncy-mainnet",
+      "icon_name": "fncy"
+    },
+    "evmos": {
+      "c_id": "evmos-mainnet",
+      "icon_name": "evmos"
+    },
+    "songbird": {
+      "c_id": "flarenetworks-canary-mainnet",
+      "icon_name": "songbird"
+    },
+    "harmony": {
+      "c_id": "harmony-mainnet",
+      "icon_name": "harmony"
+    },
+    "lisk": {
+      "c_id": "lisk-mainnet",
+      "icon_name": "lisk"
+    },
+    "loot": {
+      "c_id": "loot-mainnet",
+      "icon_name": "loot"
+    },
+    "meter": {
+      "c_id": "meter-mainnet",
+      "icon_name": "meter"
+    },
+    "milkomeda_c1": {
+      "c_id": "milkomeda-c1-mainnet",
+      "icon_name": "milkomeda"
+    },
+    "mode": {
+      "c_id": "mode-mainnet",
+      "icon_name": "mode"
+    },
+    "telos": {
+      "c_id": "telos-mainnet",
+      "icon_name": "telos"
+    },
+    "ultron": {
+      "c_id": "ultron-mainnet",
+      "icon_name": "ultron"
+    }
   }
 }
 
