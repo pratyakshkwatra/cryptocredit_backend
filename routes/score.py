@@ -64,8 +64,43 @@ class CovalentFetcher:
     def __init__(self, api_key):
         self.client = CovalentClient(api_key)
 
+    def map_transactions(self, txs):
+        tx_map = {}
+        for tx in txs:
+            tx_hash = getattr(tx, "tx_hash", None)
+            if not tx_hash:
+                continue
+            
+            tx_map[tx_hash] = {
+                "block_signed_at": getattr(tx, "block_signed_at", None),
+                "block_height": getattr(tx, "block_height", None),
+                "block_hash": getattr(tx, "block_hash", None),
+                "tx_offset": getattr(tx, "tx_offset", None),
+                "successful": getattr(tx, "successful", None),
+                "from_address": getattr(tx, "from_address", None),
+                "from_address_label": getattr(tx, "from_address_label", None),
+                "to_address": getattr(tx, "to_address", None),
+                "to_address_label": getattr(tx, "to_address_label", None),
+                "value": getattr(tx, "value", None),
+                "value_quote": getattr(tx, "value_quote", None),
+                "pretty_value_quote": getattr(tx, "pretty_value_quote", None),
+                "gas_offered": getattr(tx, "gas_offered", None),
+                "gas_spent": getattr(tx, "gas_spent", None),
+                "gas_price": getattr(tx, "gas_price", None),
+                "fees_paid": getattr(tx, "fees_paid", None),
+                "gas_quote": getattr(tx, "gas_quote", None),
+                "pretty_gas_quote": getattr(tx, "pretty_gas_quote", None),
+                "gas_quote_rate": getattr(tx, "gas_quote_rate", None),
+                # "explorers": getattr(tx, "explorers", None),
+                # "dex_details": getattr(tx, "dex_details", None),
+                # "nft_sale_details": getattr(tx, "nft_sale_details", None),
+                # "lending_details": getattr(tx, "lending_details", None),
+                # "log_events": getattr(tx, "log_events", None),
+                # "safe_details": getattr(tx, "safe_details", None),
+            }
+        return tx_map
+
     def get_transactions(self, address, chain_name, tx_limit=10):
-        
         if not chain_name:
             return []
 
@@ -89,12 +124,10 @@ class CovalentFetcher:
             
             all_txs.extend(items)
             
-            # Stop fetching if we have reached the desired limit
             if len(all_txs) >= tx_limit:
                 all_txs = all_txs[:tx_limit]
                 break
             
-            # Stop if the API returns an empty page, meaning no more transactions
             if not items:
                 break
 
@@ -153,10 +186,10 @@ class CreditScoreCalculator:
         total_balance = sum(float(token.quote or 0) for token in self.balances)
         balance_score = round(self.score_metric(total_balance, **balance_stats))
 
-        diversification_score_raw = self.diversification_analysis.get(
-            "diversification_score", 0
-        )
-        diversification_score = round((diversification_score_raw / 100) * 25)
+        # diversification_score_raw = self.diversification_analysis.get(
+        #     "diversification_score", 0
+        # )
+        # diversification_score = round((diversification_score_raw / 100) * 25)
 
         staking_score_raw = self.staking_analysis.get("staking_commitment_score", 0)
         staking_score = round((staking_score_raw / 100) * 20)
@@ -170,7 +203,7 @@ class CreditScoreCalculator:
         nft_score = round(self.score_metric(nft_count, **nft_stats))
 
         total_score = (
-            balance_score + diversification_score + staking_score + tx_score + nft_score
+            balance_score + staking_score + tx_score + nft_score
         )
         return min(total_score, 100)
 
@@ -180,11 +213,7 @@ def score_endpoint(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
 ):
-    chain_name = chains.get(req.chain.lower())
-    if not chain_name:
-        raise HTTPException(
-            status_code=400, detail="Unsupported or invalid chain specified."
-        )
+    chain_name = req.chain.lower()
 
     fetcher = CovalentFetcher(COVALENT_API_KEY)
 
@@ -202,7 +231,7 @@ def score_endpoint(
 
     return {
         "credit_score": score,
-        "transactions": txs,
+        "transactions": fetcher.map_transactions(txs),
         # "details": {
         #     "transactions_count": len(txs),
         #     "total_balance_usd": sum(float(token.quote or 0) for token in balances),

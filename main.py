@@ -19,7 +19,7 @@ app.add_middleware(
 app.include_router(auth.router, tags=["Auth"])
 app.include_router(chains.router, tags=["Chains"])
 app.include_router(wallets.router, tags=["Wallets"])
-app.include_router(score.router, prefix="/score", tags=["Score"])
+app.include_router(score.router, tags=["Score"])
 app.include_router(llm.router, prefix="/llm", tags=["LLM"])
 
 @app.get("/")
