@@ -8,9 +8,9 @@ from auth_deps import get_current_user
 from database import get_db
 from models.user import User
 from models.token import BlacklistedToken
-from schemas import UserCreate, UserLogin, Token
+from schemas import RefreshToken, UserCreate, UserLogin, Token
 import config as settings
-from models.wallet import Wallet
+import uuid
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -24,7 +24,10 @@ def verify_password(plain_password: str, hashed_password: str):
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     expire = datetime.utcnow() + (expires_delta or timedelta(minutes=30))
-    to_encode.update({"exp": expire})
+    to_encode.update({
+        "exp": expire,
+        "jti": str(uuid.uuid4()),
+    })
     return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 def decode_token(token: str):
@@ -72,13 +75,21 @@ def sign_in(user: UserLogin, db: Session = Depends(get_db)):
     }
 
 @router.post("/refresh_token")
-def refresh_token(refresh_token: str, db: Session = Depends(get_db)):
+def refresh_token(refresh: RefreshToken, db: Session = Depends(get_db)):
+    refresh_token = refresh.refresh_token
     payload = decode_token(refresh_token)
+    print(payload)
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid refresh token")
 
+    jti = payload.get("jti")
+    if not jti:
+        raise HTTPException(status_code=401, detail="Missing jti in token")
+
     token_blacklisted = (
-        db.query(BlacklistedToken).filter(BlacklistedToken.token == refresh_token).first()
+        db.query(BlacklistedToken)
+          .filter(BlacklistedToken.jti == jti)
+          .first()
     )
     if token_blacklisted:
         raise HTTPException(status_code=401, detail="Refresh token blacklisted")
@@ -89,7 +100,7 @@ def refresh_token(refresh_token: str, db: Session = Depends(get_db)):
     db_user = db.query(User).filter(User.id == user_id).first()
     if not db_user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    
+
     return {
         "access_token": new_access_token,
         "refresh_token": refresh_token,
