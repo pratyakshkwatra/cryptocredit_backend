@@ -65,12 +65,42 @@ class CovalentFetcher:
         self.client = CovalentClient(api_key)
 
     def get_transactions(self, address, chain_name, tx_limit=10):
+        
         if not chain_name:
             return []
-        resp = self.client.transaction_service.get_transactions_for_address_v3(
-            chain_name, address, page_size=tx_limit
-        )
-        return resp.data.items if not resp.error else []
+
+        all_txs = []
+        page_number = 0
+        while True:
+            resp = self.client.transaction_service.get_transactions_for_address_v3(
+                chain_name,
+                address,
+                page=page_number,
+            )
+            if resp.error:
+                print("⚠ Covalent SDK error fetching transactions:", resp.error_message)
+                break
+            
+            items = resp.data.items
+
+            if not isinstance(items, list):
+                print("⚠ Unexpected Covalent SDK response for transactions:", resp.data)
+                break
+            
+            all_txs.extend(items)
+            
+            # Stop fetching if we have reached the desired limit
+            if len(all_txs) >= tx_limit:
+                all_txs = all_txs[:tx_limit]
+                break
+            
+            # Stop if the API returns an empty page, meaning no more transactions
+            if not items:
+                break
+
+            page_number += 1
+        
+        return all_txs
 
     def get_token_balances(self, address, chain_name):
         if not chain_name:
