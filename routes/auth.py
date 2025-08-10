@@ -71,7 +71,7 @@ def sign_in(user: UserLogin, db: Session = Depends(get_db)):
         },
     }
 
-@router.post("/refresh_token", response_model=Token)
+@router.post("/refresh_token")
 def refresh_token(refresh_token: str, db: Session = Depends(get_db)):
     payload = decode_token(refresh_token)
     if not payload:
