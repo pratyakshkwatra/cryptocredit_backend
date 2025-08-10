@@ -32,13 +32,16 @@ class TokenData(BaseModel):
 class WalletBase(BaseModel):
     address: str
     chain: str
+    nickname: str
 
 class WalletCreate(WalletBase):
     pass
 
 class WalletOut(WalletBase):
     id: int
-    user_id: int
+    address: str
+    chain: str
+    nickname: str
 
     class Config:
         orm_mode = True
