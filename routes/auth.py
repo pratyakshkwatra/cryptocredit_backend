@@ -78,7 +78,6 @@ def sign_in(user: UserLogin, db: Session = Depends(get_db)):
 def refresh_token(refresh: RefreshToken, db: Session = Depends(get_db)):
     refresh_token = refresh.refresh_token
     payload = decode_token(refresh_token)
-    print(payload)
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid refresh token")
 
@@ -113,12 +112,27 @@ def refresh_token(refresh: RefreshToken, db: Session = Depends(get_db)):
     }
 
 @router.post("/sign_out")
-def sign_out(token: str, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    payload = decode_token(token)
+def sign_out(
+    access_token: str,
+    refresh_token: Optional[str] = None,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    payload = decode_token(access_token)
     if not payload:
-        raise HTTPException(status_code=401, detail="Invalid token")
+        raise HTTPException(status_code=401, detail="Invalid access token")
 
-    token_entry = BlacklistedToken(token=token, blacklisted_at=datetime.utcnow())
-    db.add(token_entry)
+    jti = payload.get("jti")
+    if not jti:
+        raise HTTPException(status_code=401, detail="Missing jti in access token")
+
+    db.add(BlacklistedToken(jti=jti))
+
+    if refresh_token:
+        refresh_payload = decode_token(refresh_token)
+        if refresh_payload and refresh_payload.get("jti"):
+            db.add(BlacklistedToken(jti=refresh_payload["jti"]))
+
     db.commit()
+
     return {"message": "Signed out successfully"}
