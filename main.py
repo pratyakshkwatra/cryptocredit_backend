@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import auth, wallets, chains, score, llm
+from routes import auth, wallets, chains, score
 
 app = FastAPI(
-    title="Crypto API",
-    description="Backend for wallet tracking, scoring, and LLM processing",
+    title="CryptoCredit API",
+    description="Backend for wallet tracking, scoring",
     version="1.0.0",
 )
 
@@ -23,4 +23,4 @@ app.include_router(score.router, tags=["Score"])
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the Crypto API"}
+    return {"message": "Welcome to the CryptoCredit API"}
