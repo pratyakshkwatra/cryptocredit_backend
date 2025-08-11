@@ -163,20 +163,6 @@ Docs will be available at: **`http://localhost:8000/docs`**
 
 ---
 
-## Example: Calculating a Score
-
-```bash
-curl -X POST "http://localhost:8000/score/" \
--H "Authorization: Bearer <your_token>" \
--H "Content-Type: application/json" \
--d '{
-    "wallet_addresses": ["0x123...", "0xabc..."],
-    "chains": ["ethereum", "polygon"]
-}'
-```
-
----
-
 ## Problem Statement
 
 > **Design and develop a protocol that aggregates on-chain user behavior such as transaction history, staking habits, and DeFi interactions into a transparent, trustable crypto credit score.**
