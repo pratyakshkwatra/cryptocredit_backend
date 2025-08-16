@@ -62,16 +62,19 @@ Below is a breakdown of all the parameters currently considered in generating th
 * **User Authentication**: Sign up, sign in, refresh, and revoke tokens.
 * **Chain Management**: Retrieve supported blockchain networks (76).
 * **Wallet Tracking**: Add, verify, list, and delete wallets.
-* **Scoring Engine**: Compute a 0 900 crypto credit score based on aggregated behavior.
+* **Scoring Engine**: Compute a 0 - 900 crypto credit score based on aggregated behavior.
+* **Developer API**: Generate and manage API keys for external integrations.
+* **API Analytics**: Track usage and performance of API keys.
 * **RESTful API**: Fully documented OpenAPI spec.
 
 ---
 
 ## Authentication
 
-The API uses **JWT Bearer tokens** for secure access.
+The API supports two authentication methods:
 
-To authorize, click the **Authorize** button in the API docs or send an `Authorization: Bearer <token>` header with your requests.
+1. **JWT Bearer Tokens** — Used for authenticated user access. Include an `Authorization: Bearer <token>` header.
+2. **API Keys** — Used for developer integrations.
 
 ---
 
@@ -103,9 +106,20 @@ To authorize, click the **Authorize** button in the API docs or send an `Authori
 
 ### Score
 
-| Method | Endpoint  | Description                                        |
-| ------ | --------- | -------------------------------------------------- |
-| POST   | `/score/` | Calculate the credit score for the linked wallets. |
+| Method | Endpoint        | Description                                                       |
+| ------ | --------------- | ----------------------------------------------------------------- |
+| POST   | `/score/`       | Calculate the credit score for the linked wallets (JWT auth).     |
+| POST   | `/score/by_key` | Calculate the credit score using an **API key** (for developers). |
+
+### API Keys & Analytics
+
+| Method | Endpoint                  | Description                                |
+| ------ | ------------------------- | ------------------------------------------ |
+| GET    | `/api/keys`               | List API keys for the user.                |
+| POST   | `/api/keys`               | Create a new API key.                      |
+| DELETE | `/api/keys/{key_id}`      | Delete an API key.                         |
+| GET    | `/api/analytics`          | Retrieve global API analytics.             |
+| GET    | `/api/analytics/{key_id}` | Retrieve analytics for a specific API key. |
 
 ### Default
 
@@ -153,7 +167,7 @@ cp .env.example .env
 # Edit .env with your database & secret config
 
 # Run server
-uvicorn main:app --reload 
+uvicorn main:app --reload
 # or
 fastapi dev main.py
 ```
@@ -170,5 +184,6 @@ Docs will be available at: **`http://localhost:8000/docs`**
 > The system should encourage accountability and enable fairer financial decisions in the decentralized ecosystem.
 
 ---
-Made with 💜 by  [**Pratyaksh Kwatra**](https://github.com/pratyakshkwatra) & [**Aarav Rai**](https://github.com/Aarav-Rai)  
+
+Made with 💜 by  [**Pratyaksh Kwatra**](https://github.com/pratyakshkwatra) & [**Aarav Rai**](https://github.com/Aarav-Rai)
 Fueled by ☕, powered by 🚀, and sprinkled with a bit of ✨ magic.
