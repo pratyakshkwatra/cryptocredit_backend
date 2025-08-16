@@ -10,6 +10,8 @@ from sqlalchemy.orm import Session
 from models.user import User
 import config as settings
 import statistics
+from fastapi import Query
+from models.api_key import APIKey
 
 router = APIRouter(tags=["Score"], prefix="/score")
 
@@ -244,6 +246,52 @@ def score_endpoint(
 
     calc = CreditScoreCalculator(analyses)
     score = calc.calculate_score()
+
+    return {
+        "credit_score": score,
+        "details": analyses,
+        "txs": txs
+    }
+
+@router.post("/by_key", tags=["Score"])
+def score_with_api_key(
+    req: ScoreRequest,
+    api_key: str = Query(..., description="Your API key"),
+    db: Session = Depends(get_db),
+):
+    key_obj = db.query(APIKey).filter(APIKey.key == api_key).first()
+    if not key_obj:
+        raise HTTPException(status_code=401, detail="Invalid API key")
+
+    key_obj.total_calls += 1
+    try:
+        chain_name = req.chain.lower()
+        address = req.address.lower()
+        tx_limit = req.tx_limit or 100
+
+        txs = get_goldrush_transactions(address, chain_name, tx_limit)
+        balances = get_goldrush_token_balances(address, chain_name)
+
+    except requests.HTTPError as e:
+        key_obj.total_errors += 1
+        db.commit()
+        raise HTTPException(status_code=503, detail=f"External API Error: {str(e)}")
+
+    analyses = {
+        "tx_quality": analyze_tx_quality(txs),
+        "diversification": analyze_diversification(txs, balances),
+        "wallet_age": analyze_wallet_age_and_activity(chain_name, address),
+        "gas_usage": analyze_gas_usage(txs),
+        "total_balance": analyze_total_balance(balances),
+        "incoming_outgoing": analyze_incoming_outgoing(txs, address),
+        "inter_transaction_time": analyze_inter_tx_time(txs),
+    }
+
+    calc = CreditScoreCalculator(analyses)
+    score = calc.calculate_score()
+
+    key_obj.total_success += 1
+    db.commit()
 
     return {
         "credit_score": score,

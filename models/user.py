@@ -13,3 +13,5 @@ class User(Base):
     wallets = relationship(
         "Wallet", back_populates="owner", cascade="all, delete-orphan"
     )
+
+    api_keys = relationship("APIKey", back_populates="owner", cascade="all, delete-orphan")

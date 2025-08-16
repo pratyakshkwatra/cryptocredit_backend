@@ -5,6 +5,7 @@ from db_base import Base
 import models.token
 import models.user
 import models.wallet
+import models.api_key
 
 engine = create_engine(DATABASE_URL)
 
